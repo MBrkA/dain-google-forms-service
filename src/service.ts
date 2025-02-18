@@ -3,6 +3,10 @@ import { getTokenStore } from "./token-store";
 import { createFormConfig } from "./tools/create-form-tool";
 import { getFormConfig } from "./tools/get-form-tool";
 import { getResponsesConfig } from "./tools/get-responses-tool";
+import { updateFormConfig } from "./tools/update-form-tool";
+import { addFormItemConfig } from "./tools/add-form-item-tool";
+import { deleteFormItemConfig } from "./tools/delete-form-item-tool";
+import { moveFormItemConfig } from "./tools/move-form-item-tool";
 
 export const dainService = defineDAINService({
   metadata: {
@@ -20,6 +24,10 @@ export const dainService = defineDAINService({
     createFormConfig,
     getFormConfig,
     getResponsesConfig,
+    updateFormConfig,
+    addFormItemConfig,
+    deleteFormItemConfig,
+    moveFormItemConfig
   ],
   oauth2: {
     baseUrl: process.env.TUNNEL_URL || "http://localhost:2022",
