@@ -2,6 +2,7 @@ import { createOAuth2Tool, defineDAINService } from "@dainprotocol/service-sdk";
 import { getTokenStore } from "./token-store";
 import { createFormConfig } from "./tools/create-form-tool";
 import { getFormConfig } from "./tools/get-form-tool";
+import { getResponsesConfig } from "./tools/get-responses-tool";
 
 export const dainService = defineDAINService({
   metadata: {
@@ -18,6 +19,7 @@ export const dainService = defineDAINService({
     createOAuth2Tool("google"),
     createFormConfig,
     getFormConfig,
+    getResponsesConfig,
   ],
   oauth2: {
     baseUrl: process.env.TUNNEL_URL || "http://localhost:2022",
@@ -30,6 +32,7 @@ export const dainService = defineDAINService({
         scopes: [
           "https://www.googleapis.com/auth/forms.body",
           "https://www.googleapis.com/auth/drive.file",
+          "https://www.googleapis.com/auth/forms.responses.readonly",
           "email",
           "profile",
         ],

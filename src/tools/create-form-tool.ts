@@ -81,8 +81,8 @@ const createFormConfig: ToolConfig = {
       console.error("Error creating form:", error.response?.data || error);
 
       const alertUI = new AlertUIBuilder()
-        .withVariant("error")
-        .withMessage(
+        .variant("error")
+        .message(
           `Failed to create form: ${
             error.response?.data?.error?.message || error.message
           }`

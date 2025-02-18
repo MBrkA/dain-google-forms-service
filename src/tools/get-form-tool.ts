@@ -72,8 +72,8 @@ const getFormConfig: ToolConfig = {
       console.error("Error getting form:", error.response?.data || error);
 
       const alertUI = new AlertUIBuilder()
-        .withVariant("error")
-        .withMessage(
+        .variant("error")
+        .message(
           `Failed to get form: ${
             error.response?.data?.error?.message || error.message
           }`
