@@ -64,20 +64,33 @@ const getResponsesConfig: ToolConfig = {
 
       const responses = response.data.responses || [];
 
-      // Create table UI with responses
+      // Create table UI with detailed responses
       const tableUI = new TableUIBuilder()
         .addColumns([
           { key: "responseId", header: "Response ID", type: "text" },
           { key: "createTime", header: "Created", type: "text" },
           { key: "lastSubmittedTime", header: "Last Submitted", type: "text" },
-          { key: "respondentEmail", header: "Email", type: "text" }
+          { key: "respondentEmail", header: "Email", type: "text" },
+          { key: "totalScore", header: "Total Score", type: "number" },
+          { key: "answers", header: "Answers", type: "text" }
         ])
-        .rows(responses.map(r => ({
-          responseId: r.responseId,
-          createTime: new Date(r.createTime).toLocaleString(),
-          lastSubmittedTime: new Date(r.lastSubmittedTime).toLocaleString(),
-          respondentEmail: r.respondentEmail || 'Anonymous'
-        })))
+        .rows(responses.map(r => {
+          // Format answers into readable text
+          const formattedAnswers = Object.entries(r.answers || {}).map(([questionId, answer]: [string, any]) => {
+            const textAnswers = answer.textAnswers?.answers || [];
+            const answerValues = textAnswers.map(a => a.value).join(", ");
+            return `Q${questionId}: ${answerValues}`;
+          }).join(" | ");
+
+          return {
+            responseId: r.responseId,
+            createTime: new Date(r.createTime).toLocaleString(),
+            lastSubmittedTime: new Date(r.lastSubmittedTime).toLocaleString(),
+            respondentEmail: r.respondentEmail || 'Anonymous',
+            totalScore: r.totalScore || 'N/A',
+            answers: formattedAnswers || 'No answers'
+          };
+        }))
         .build();
 
       return {
